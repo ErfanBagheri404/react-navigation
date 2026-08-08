@@ -437,8 +437,13 @@ export function getPathFromState<ParamList extends {}>(
   }
 
   // Remove multiple as well as trailing slashes
-  path = path.replace(/\/+/g, '/');
-  path = path.length > 1 ? path.replace(/\/$/, '') : path;
+  if (path.includes('//')) {
+    path = path.replace(/\/+/g, '/');
+  }
+
+  if (path.length > 1 && path.endsWith('/')) {
+    path = path.slice(0, -1);
+  }
 
   // If path doesn't start with a slash, add it
   // This makes sure that history.pushState will update the path correctly instead of appending
