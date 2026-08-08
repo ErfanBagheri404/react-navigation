@@ -16,11 +16,13 @@ import type { Thenable } from './useThenable';
 
 const linkingHandlers = new Set<symbol>();
 
+const DEFAULT_PREFIXES = ['*'];
+
 export function useLinking<ParamList extends ParamListBase>(
   ref: React.RefObject<NavigationContainerRef<ParamList> | null>,
   {
     enabled = true,
-    prefixes = ['*'],
+    prefixes = DEFAULT_PREFIXES,
     filter,
     config,
     getInitialURL = () =>
